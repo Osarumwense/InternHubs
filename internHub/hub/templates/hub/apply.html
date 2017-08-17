@@ -1,0 +1,45 @@
+{% extends 'hub/base.html' %}
+
+{% block title %}{{ job.title }}{% endblock %}
+{% block other_styles %}
+<!-- Page styles -->  
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+
+
+<style>
+.full-width {
+  width: 100%;
+}
+</style> 
+{% endblock %}
+
+{% block middle_content %}
+  <div style="padding: 80px 56px" class="content mdl-card mdl-shadow--2dp full-width">
+    <h1>{{ job.title }}</h1>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input type="file" style="color:transparent;" onchange="this.style.color = 'black';" name="resume" required id="id_resume">
+        <input class="mdl-textfield__input" placeholder="Resume" type="text" id="uploadFile1" readonly/>
+        <input type="file" style="color:transparent;" onchange="this.style.color = 'black';" name="cover_letter" id="id_cover_letter">
+        <input class="mdl-textfield__input" placeholder="Cover Letter" type="text" id="uploadFile2" readonly/>  
+      </div>
+      <br>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">
+      Submit
+      </button>
+    </form>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    document.getElementById("id_resume").onchange = function () {
+    document.getElementById("uploadFile1").value = this.files[0].name;
+    };
+    document.getElementById("id_cover_letter").onchange = function () {
+    document.getElementById("uploadFile2").value = this.files[0].name;
+    };
+  </script>
+{% endblock %}
+
